@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4402633139162016069}
   - component: {fileID: -927363440770745654}
   - component: {fileID: 569739263276052270}
+  - component: {fileID: 8687617830167405047}
   m_Layer: 5
   m_Name: Carta001
   m_TagString: Untagged
@@ -93,10 +94,6 @@ MonoBehaviour:
   rotated: 0
   baseRotation: 0
   rotationButtonPrefab: {fileID: 0}
-  sprites:
-  - {fileID: 21300000, guid: 3112c6cd9cda99a43b1d18e51088220c, type: 3}
-  - {fileID: 21300000, guid: ef711d660e4fae342827734fee098aac, type: 3}
-  - {fileID: 21300000, guid: 0c9cab1c22ed9d5498a58c8c47849895, type: 3}
 --- !u!114 &-927363440770745654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,3 +126,16 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &8687617830167405047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402633139162016123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ebdae12e6d2e324c8b7f44dc53a72eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData: {fileID: 11400000, guid: 0742dd73aef2f1b4c995d8374aa3682c, type: 2}

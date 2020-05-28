@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3965062650652624665}
   - component: {fileID: 3965062650652624664}
   - component: {fileID: 7905130200712909027}
+  - component: {fileID: 3704166436436774704}
   m_Layer: 5
   m_Name: Spazio
   m_TagString: Untagged
@@ -124,5 +125,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4ebf6cad8491c04596f08a9ac815a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3704166436436774704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3965062650652624742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17e95cb53401d6418ef84ce79e5b5f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

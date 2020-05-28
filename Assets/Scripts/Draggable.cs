@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
 
     GameObject placeholder = null;
@@ -14,12 +14,44 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public bool rotated = false;
     public int baseRotation = 0;
     public Button rotationButtonPrefab;
-    public Sprite[] sprites;
     private int rotation = 0;
+    bool MouseOnObject = false;
+    bool rotationButtonActive = false;
+    public Manager manager;
+    Player owner;
+    Card cardScript;
+
+
+    public void Update(){
+        if(owner == null){
+            owner = GetComponent<Card>().owner;
+        }
+        if ((Input.GetMouseButtonDown(0)) && (!MouseOnObject) && rotationButtonActive)
+            {
+               Debug.Log("MHANZ");
+               Button button = GetComponentInChildren<Button>();
+               button.gameObject.SetActive(false);
+               rotationButtonActive = false;
+               parentToReturnTo.GetComponent<CardSpace>().card = cardScript;
+               manager.changeTurn();
+            }
+    }
 
     public void Awake(){
         this.transform.rotation = Quaternion.Euler(0,0, baseRotation);
+        cardScript = GetComponent<Card>();
+        manager = GameObject.FindWithTag("manager").GetComponent<Manager>();
     }
+
+     public void OnPointerEnter(PointerEventData pointerEventData)
+     {
+         MouseOnObject = true;
+ 
+     }
+     public void OnPointerExit(PointerEventData pointerEventData)
+     {
+         MouseOnObject = false;
+     }
  
     public void OnBeginDrag(PointerEventData eventData){
         placeholder = new GameObject();
@@ -56,7 +88,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     }
 
     public void OnEndDrag(PointerEventData eventData){
-        baseRotation = AskRotation();
         this.transform.rotation = Quaternion.Euler(0,0, baseRotation);
         if(parentToReturnTo.tag == "spazio_down"){
             this.transform.rotation = Quaternion.Euler(0,0,180);
@@ -64,6 +95,10 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         this.transform.SetParent(parentToReturnTo);
         if(this.transform.parent.tag == "mano"){
             this.transform.rotation = Quaternion.Euler(0,0,0);
+        }else{
+            if(!rotationButtonActive){
+                baseRotation = AskRotation();
+            }
         }
         this.transform.SetSiblingIndex( placeholder.transform.GetSiblingIndex());
         GetComponent<CanvasGroup>().blocksRaycasts = true;
@@ -71,25 +106,28 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     }
 
     int AskRotation(){
+        rotationButtonActive = true;
         Canvas canvas = GetComponentInParent<Canvas>();
         Vector3 buttonPosition = this.transform.position;
-        Debug.Log(buttonPosition);
         buttonPosition.y += 50;
         CreateButton(this.transform, buttonPosition, new Vector2(50,50), EventRotation);
         return 0;
     }
 
     void EventRotation(){
-        Debug.Log("EVENTO CHIAMATO");
         rotation += 1;
-        Sprite sprite;
         if(rotation > 2){
             rotation = 0;
         }
-        sprite = sprites[rotation];
-        GetComponent<Image>().sprite = sprite;
-        Debug.Log(GetComponent<Image>().sprite);
-        Debug.Log(sprite);
+        Quaternion actualRotation = this.transform.rotation;
+        actualRotation.z += 120;
+        if(!rotated){
+            StartCoroutine( Rotate( new Vector3(actualRotation.x, actualRotation.y, 120*rotation), 0.1f ) ) ;
+        } else{
+            StartCoroutine( Rotate( new Vector3(actualRotation.x, actualRotation.y, 180 + 120*rotation), 0.1f ) ) ;
+        }
+        cardScript.UpdateRotation();
+        cardScript.stampaValori();
     }
 
     public void CreateButton(Transform panel ,Vector3 position, Vector2 size, UnityEngine.Events.UnityAction method)
@@ -99,6 +137,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         rotationButton.transform.localPosition = new Vector3(0, 0, 0);
         rotationButton.GetComponent<RectTransform>().sizeDelta = size;
         rotationButton.GetComponent<Button>().onClick.AddListener(method);
+        rotationButton.gameObject.SetActive(true);
     }
 
     public void UpdateRotation() {

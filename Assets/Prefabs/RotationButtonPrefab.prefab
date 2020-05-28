@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 9211241897917816331}
   - component: {fileID: 9211241897917816330}
   m_Layer: 0
-  m_Name: RotationButton
+  m_Name: RotationButtonPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9211241897917816329
 RectTransform:
   m_ObjectHideFlags: 0

@@ -7,6 +7,8 @@ TagManager:
   - spazio_up
   - spazio_down
   - mano
+  - mano2
+  - manager
   layers:
   - Default
   - TransparentFX

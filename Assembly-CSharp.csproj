@@ -53,9 +53,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Card.cs" />
+     <Compile Include="Assets\Scripts\CardData.cs" />
+     <Compile Include="Assets\Scripts\CardSpace.cs" />
      <Compile Include="Assets\Scripts\Draggable.cs" />
      <Compile Include="Assets\Scripts\DropZone.cs" />
      <Compile Include="Assets\Scripts\DropZoneHand.cs" />
+     <Compile Include="Assets\Scripts\Manager.cs" />
+     <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\SpaceClickable.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/loren/Desktop/zero/Triangles/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
@@ -78,14 +83,14 @@
  <Reference Include="Unity.Rider.Editor">
  <HintPath>C:/Users/loren/Desktop/zero/Triangles/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Sprite.Editor">
+ <HintPath>C:/Users/loren/Desktop/zero/Triangles/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>C:/Users/loren/Desktop/zero/Triangles/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Users/loren/Desktop/zero/Triangles/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>C:/Users/loren/Desktop/zero/Triangles/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

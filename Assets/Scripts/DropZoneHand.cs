@@ -5,6 +5,14 @@ using UnityEngine.EventSystems;
 
 public class DropZoneHand : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public Player player;
+
+    void Awake(){
+        foreach (Card c in GetComponentsInChildren<Card>()){
+            c.owner = player;
+        }
+    }
+
     public void OnDrop(PointerEventData eventData){
         Debug.Log("OnDrop to" + gameObject.name);
 
@@ -34,14 +42,4 @@ public class DropZoneHand : MonoBehaviour, IDropHandler, IPointerEnterHandler, I
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

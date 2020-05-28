@@ -7,10 +7,9 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 {
 
     public bool isFull = false;
+    CardSpace cardSpace;
     public void OnDrop(PointerEventData eventData){
         if(!isFull){
-        Debug.Log("OnDrop to" + gameObject.name);
-
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
         if(d!=null){
             d.parentToReturnTo = this.transform;
@@ -52,6 +51,10 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     void Start()
     {
         
+    }
+
+    void Awake(){
+        cardSpace = GetComponent<CardSpace>();
     }
 
     // Update is called once per frame

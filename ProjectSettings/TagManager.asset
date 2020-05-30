@@ -9,6 +9,7 @@ TagManager:
   - mano
   - mano2
   - manager
+  - descrizione
   layers:
   - Default
   - TransparentFX

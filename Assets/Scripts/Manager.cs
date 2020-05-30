@@ -7,6 +7,7 @@ public class Manager : MonoBehaviour
     public int numberOfPlayers = 2;
     public int turnoAttuale;
     public GameObject canvas;
+    public GameObject descrizioneCarta;
     List<Player> players = new List<Player>();
 
     void Awake()
@@ -43,5 +44,13 @@ public class Manager : MonoBehaviour
         foreach(Card c in cards){
             c.attiva();
         }
+    }
+
+    public void MostraDescrizione(Card card){
+        descrizioneCarta.active = true;
+    }
+
+    public void NascondiDescrizione(){
+        descrizioneCarta.active = false;
     }
 }

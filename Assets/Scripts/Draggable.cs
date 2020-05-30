@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
 
     GameObject placeholder = null;
@@ -17,6 +17,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private int rotation = 0;
     bool MouseOnObject = false;
     bool rotationButtonActive = false;
+    private bool descriptionActive = false;
     public Manager manager;
     Player owner;
     Card cardScript;
@@ -28,13 +29,15 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
         if ((Input.GetMouseButtonDown(0)) && (!MouseOnObject) && rotationButtonActive)
             {
-               Debug.Log("MHANZ");
                Button button = GetComponentInChildren<Button>();
                button.gameObject.SetActive(false);
                rotationButtonActive = false;
                parentToReturnTo.GetComponent<CardSpace>().card = cardScript;
                manager.changeTurn();
-            }
+        } else if((Input.GetMouseButtonDown(0)) && descriptionActive){
+            manager.NascondiDescrizione();
+            descriptionActive = false;
+        }
     }
 
     public void Awake(){
@@ -52,6 +55,18 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
      {
          MouseOnObject = false;
      }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        int tap = eventData.clickCount;
+ 
+        if (tap == 2)
+        {
+            manager.MostraDescrizione(cardScript);
+            descriptionActive = true;
+        }
+ 
+    }
  
     public void OnBeginDrag(PointerEventData eventData){
         placeholder = new GameObject();

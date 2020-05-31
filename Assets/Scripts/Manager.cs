@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
@@ -47,10 +48,20 @@ public class Manager : MonoBehaviour
     }
 
     public void MostraDescrizione(Card card){
-        descrizioneCarta.active = true;
+        descrizioneCarta.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = card.sprite;
+        GameObject sp_effects = descrizioneCarta.transform.GetChild(1).gameObject;
+        GameObject stats = descrizioneCarta.transform.GetChild(2).gameObject;
+        descrizioneCarta.transform.GetChild(3).gameObject.GetComponent<Text>().text = card.effect_desc;
+        descrizioneCarta.transform.GetChild(4).gameObject.GetComponent<Text>().text = card.lore;
+        string sp_effects_text = card.desc_SP1 + "\n\n" + card.desc_SP2 + "\n\n" + card.desc_SP3;
+        sp_effects.GetComponent<Text>().text = sp_effects_text;
+        stats.transform.GetChild(0).gameObject.GetComponent<Text>().text = card.baseValue.ToString();
+        stats.transform.GetChild(1).gameObject.GetComponent<Text>().text = card.leftValue.ToString();
+        stats.transform.GetChild(2).gameObject.GetComponent<Text>().text = card.rightValue.ToString();
+        descrizioneCarta.SetActive(true);
     }
 
     public void NascondiDescrizione(){
-        descrizioneCarta.active = false;
+        descrizioneCarta.SetActive(false);
     }
 }

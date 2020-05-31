@@ -29,14 +29,20 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
         if ((Input.GetMouseButtonDown(0)) && (!MouseOnObject) && rotationButtonActive)
             {
-               Button button = GetComponentInChildren<Button>();
-               button.gameObject.SetActive(false);
-               rotationButtonActive = false;
-               parentToReturnTo.GetComponent<CardSpace>().card = cardScript;
+                RemoveRotationButton();
                manager.changeTurn();
         } else if((Input.GetMouseButtonDown(0)) && descriptionActive){
             manager.NascondiDescrizione();
             descriptionActive = false;
+        }
+    }
+
+    void RemoveRotationButton(){
+        if(rotationButtonActive){
+            Button button = GetComponentInChildren<Button>();
+            button.gameObject.SetActive(false);
+            rotationButtonActive = false;
+            parentToReturnTo.GetComponent<CardSpace>().card = cardScript;
         }
     }
 
@@ -59,8 +65,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnPointerClick(PointerEventData eventData)
     {
         int tap = eventData.clickCount;
- 
-        if (tap == 2)
+        if (tap == 2 && !rotationButtonActive)
         {
             manager.MostraDescrizione(cardScript);
             descriptionActive = true;
@@ -69,6 +74,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     }
  
     public void OnBeginDrag(PointerEventData eventData){
+        if(rotationButtonActive) RemoveRotationButton();
         placeholder = new GameObject();
         placeholder.transform.SetParent(this.transform.parent);
         LayoutElement le = placeholder.AddComponent<LayoutElement>();

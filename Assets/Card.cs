@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class Card : MonoBehaviour
     public string desc_SP2;
     public string desc_SP3;
     public Player owner;
+    public Image img;
 
     void Awake(){
         baseValue = cardData.baseV;
@@ -34,6 +36,7 @@ public class Card : MonoBehaviour
         desc_SP2 = "";
         desc_SP3 = "";
         draggable = GetComponent<Draggable>();
+        img.color = owner.playerColor;
     }
 
     public void UpdateRotation(){

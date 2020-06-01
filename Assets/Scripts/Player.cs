@@ -8,6 +8,7 @@ public class Player : MonoBehaviour, IComparable
     List<Card> deck = new List<Card>();
     public int playerNumber;
     public string playerName;
+    public Color playerColor;
 
     public void Setup(string n, int playernum){
         playerName = n;

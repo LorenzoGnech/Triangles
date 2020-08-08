@@ -19,6 +19,7 @@ public class Card : MonoBehaviour
     public string desc_SP2;
     public string desc_SP3;
     public Player owner;
+    public GameObject pointPrefab;
     public Image img;
 
     void Awake(){
@@ -37,6 +38,7 @@ public class Card : MonoBehaviour
         desc_SP3 = "";
         draggable = GetComponent<Draggable>();
         img.color = owner.playerColor;
+        updateRender();
     }
 
     public void UpdateRotation(){
@@ -55,7 +57,29 @@ public class Card : MonoBehaviour
         draggable.enabled = false;
     }
 
+    public void updateRender(){
+        Transform basePoints = transform.GetChild(1);
+        Transform leftPoints = transform.GetChild(2);
+        Transform rightPoints = transform.GetChild(3);
+        for(int i = 0; i<baseValue; i++){
+            GameObject obj = Instantiate (pointPrefab) as GameObject;
+            obj.transform.SetParent(basePoints);
+        }
+        for(int i = 0; i<leftValue; i++){
+            GameObject obj = Instantiate (pointPrefab) as GameObject;
+            obj.transform.SetParent(leftPoints);
+        }
+        for(int i = 0; i<rightValue; i++){
+            GameObject obj = Instantiate (pointPrefab) as GameObject;
+            obj.transform.SetParent(rightPoints);
+        }
+    }
+
     public void attiva(){
         draggable.enabled = true;
+    }
+
+    public override string  ToString(){
+        return(baseValue + " - " + rightValue + " - " + leftValue);
     }
 }

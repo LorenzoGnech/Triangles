@@ -22,7 +22,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     Player owner;
     Card cardScript;
 
-
     public void Update(){
         if(owner == null){
             owner = GetComponent<Card>().owner;
@@ -30,7 +29,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if ((Input.GetMouseButtonDown(0)) && (!MouseOnObject) && rotationButtonActive)
             {
                 RemoveRotationButton();
-               manager.changeTurn();
+                manager.execute(cardScript);
+                manager.changeTurn();
         } else if((Input.GetMouseButtonDown(0)) && descriptionActive){
             manager.NascondiDescrizione();
             descriptionActive = false;
@@ -50,6 +50,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         this.transform.rotation = Quaternion.Euler(0,0, baseRotation);
         cardScript = GetComponent<Card>();
         manager = GameObject.FindWithTag("manager").GetComponent<Manager>();
+        if(baseRotation == 180) rotated = true;
     }
 
      public void OnPointerEnter(PointerEventData pointerEventData)
@@ -90,7 +91,18 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     }
 
     public void OnDrag(PointerEventData eventData){
-        this.transform.position = eventData.position;
+
+        transform.position = eventData.position;
+
+/*
+        Vector3 newRotation = new Vector3(eventData.delta.y, eventData.delta.x, 0);
+        var currentRotation = transform.eulerAngles;
+        currentRotation.x = eventData.delta.y*rotationMul;
+        currentRotation.y = eventData.delta.x*rotationMul;
+        transform.eulerAngles = currentRotation;
+        */
+        //transform.rotation =  Quaternion.Lerp(transform.rotation, Quaternion.Euler(newRotation*rotationMul), Time.deltaTime*5); // Da mettere a posto
+
         GetComponent<CanvasGroup>().blocksRaycasts = false;
         if(placeholder.transform.parent != placeholderParent){
             placeholder.transform.SetParent(placeholderParent);
@@ -110,12 +122,16 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData){
         this.transform.rotation = Quaternion.Euler(0,0, baseRotation);
-        if(parentToReturnTo.tag == "spazio_down"){
+        if(parentToReturnTo.tag == "spazio_down" && baseRotation == 0){
             this.transform.rotation = Quaternion.Euler(0,0,180);
         }
+        if(parentToReturnTo.tag == "spazio_up" && baseRotation == 180){
+            this.transform.rotation = Quaternion.Euler(0,0,0);
+        }
+        if(baseRotation == 180) rotated = !rotated;
         this.transform.SetParent(parentToReturnTo);
         if(this.transform.parent.tag == "mano"){
-            this.transform.rotation = Quaternion.Euler(0,0,0);
+             StartCoroutine( Rotate( new Vector3(0, 0, baseRotation), 0.1f ) ) ;
         }else{
             if(!rotationButtonActive){
                 baseRotation = AskRotation();
@@ -142,7 +158,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
         Quaternion actualRotation = this.transform.rotation;
         actualRotation.z += 120;
-        if(!rotated){
+        if(rotated){
             StartCoroutine( Rotate( new Vector3(actualRotation.x, actualRotation.y, 120*rotation), 0.1f ) ) ;
         } else{
             StartCoroutine( Rotate( new Vector3(actualRotation.x, actualRotation.y, 180 + 120*rotation), 0.1f ) ) ;
@@ -162,7 +178,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     }
 
     public void UpdateRotation() {
-        if(rotated){
+        if(!rotated){
             StartCoroutine( Rotate( new Vector3(0, 0, baseRotation + 180), 0.1f ) ) ;
             //this.transform.rotation = Quaternion.Euler(0,0,180);
         } else{

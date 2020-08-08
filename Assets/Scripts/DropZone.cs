@@ -24,10 +24,26 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         }
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
         if(this.tag == "spazio_up"){
+            if(d.baseRotation == 0){
+                d.rotated = false;
+            } else{
+                d.rotated = true;
+            }
+        } else{
+            if(d.baseRotation == 0){
+                d.rotated = true;
+            } else{
+                d.rotated = false;
+            }
+        }
+        /*
+        if(this.tag == "spazio_up"){
             d.rotated = false;
         } else{
             d.rotated = true;
         }
+        */ //Funzionante
+        d.rotated = !d.rotated;
         d.UpdateRotation();
         if(d!=null){
             d.placeholderParent = this.transform;

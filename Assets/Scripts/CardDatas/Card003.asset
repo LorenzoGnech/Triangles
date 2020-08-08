@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cb5b66b966850419f76daae47548b7, type: 3}
+  m_Name: Card003
+  m_EditorClassIdentifier: 
+  cardName: 
+  baseV: 3
+  leftV: 3
+  rightV: 8
+  id_SP1: 0
+  id_SP2: 0
+  id_SP3: 0
+  id_effect: 0
+  effect_description: Quando entra in campo spacca tutto
+  lore: Boh penso sia Hollow knight
+  artwork: {fileID: 21300000, guid: ed9df35e09fe0264e9fc94bf4175432c, type: 3}

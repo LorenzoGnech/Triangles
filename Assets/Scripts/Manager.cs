@@ -19,6 +19,10 @@ public class Manager : MonoBehaviour
         }
         players.Sort();
         turnoAttuale = 1;
+        foreach(Player p in players){
+            p.initializeDeck();
+            p.startingDraw();
+        }
         changeTurn();
     }
     public void changeTurn(){
@@ -35,7 +39,6 @@ public class Manager : MonoBehaviour
     void BloccaAvversari(Card[] cards){
         foreach(Card c in cards){
             if(c.owner.playerNumber != turnoAttuale){
-                //Debug.Log("Disattivo " + c);
                 c.disattiva();
             }
         }
@@ -45,6 +48,11 @@ public class Manager : MonoBehaviour
         foreach(Card c in cards){
             c.attiva();
         }
+    }
+
+    public void execute(Card attacker){
+        CardSpace cSpace = attacker.transform.parent.GetComponent<CardSpace>();
+        cSpace.executeAttack();
     }
 
     public void MostraDescrizione(Card card){
